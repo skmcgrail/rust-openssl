@@ -65,6 +65,15 @@ fn check_ssl_kind() {
         println!("cargo:rustc-cfg=boringssl");
         // BoringSSL does not have any build logic, exit early
         std::process::exit(0);
+    } else if cfg!(feature = "aws-lc-fips") {
+        // Check FIPS variant first!
+        // AWS-LC-FIPS does not have any build logic, exit early
+        println!("cargo:rustc-cfg=aws_lc_fips");
+        std::process::exit(0);
+    } else if cfg!(feature = "aws-lc") {
+        println!("cargo:rustc-cfg=aws_lc");
+        // AWS-LC does not have any build logic, exit early
+        std::process::exit(0);
     } else {
         println!("cargo:rustc-cfg=openssl");
     }

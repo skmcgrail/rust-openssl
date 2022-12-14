@@ -20,6 +20,16 @@ extern crate bssl_sys;
 #[cfg(boringssl)]
 pub use bssl_sys::*;
 
+#[cfg(aws_lc)]
+extern crate aws_lc_sys;
+#[cfg(aws_lc)]
+pub use aws_lc_sys::*;
+
+#[cfg(aws_lc_fips)]
+extern crate aws_lc_fips_sys;
+#[cfg(aws_lc_fips)]
+pub use aws_lc_fips_sys::*;
+
 #[cfg(openssl)]
 #[path = "."]
 mod openssl {

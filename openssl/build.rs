@@ -7,8 +7,22 @@ fn main() {
         println!("cargo:rustc-cfg=libressl");
     }
 
-    if env::var("CARGO_FEATURE_UNSTABLE_BORINGSSL").is_ok() {
-        println!("cargo:rustc-cfg=boringssl");
+    if cfg!(any(
+        feature = "unstable_boringssl",
+        feature = "aws-lc-fips",
+        feature = "aws-lc"
+    )) {
+        println!("cargo:rustc-cfg=boringssl_flavour");
+        let flavour = if cfg!(feature = "unstable_boringssl") {
+            Some("boringssl")
+        } else if cfg!(feature = "aws-lc-fips") {
+            Some("aws_lc_fips")
+        } else if cfg!(feature = "aws-lc") {
+            Some("aws_lc")
+        } else {
+            None
+        };
+        println!("cargo:rustc-cfg={}", flavour.unwrap());
         return;
     }
 
