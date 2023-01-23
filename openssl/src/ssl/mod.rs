@@ -3114,7 +3114,7 @@ impl SslRef {
     }
 
     /// Sets a new default TLS/SSL method for SSL objects
-    #[cfg(not(boringssl))]
+    #[cfg(not(boringssl_flavour))]
     pub fn set_method(&mut self, method: SslMethod) -> Result<(), ErrorStack> {
         unsafe {
             cvt(ffi::SSL_set_ssl_method(self.as_ptr(), method.as_ptr()))?;

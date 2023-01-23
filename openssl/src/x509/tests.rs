@@ -861,7 +861,7 @@ fn test_add_name_entry() {
 }
 
 #[test]
-#[cfg(not(boringssl))]
+#[cfg(not(boringssl_flavour))]
 fn test_load_crl_file_fail() {
     let mut store_bldr = X509StoreBuilder::new().unwrap();
     let lookup = store_bldr.add_lookup(X509Lookup::file()).unwrap();
