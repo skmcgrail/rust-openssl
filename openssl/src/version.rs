@@ -111,7 +111,7 @@ fn test_versions() {
     println!("Platform: '{}'", platform());
     println!("Dir: '{}'", dir());
 
-    #[cfg(not(any(libressl, boringssl)))]
+    #[cfg(not(any(libressl, boringssl, awslc)))]
     fn expected_name() -> &'static str {
         "OpenSSL"
     }
@@ -119,7 +119,7 @@ fn test_versions() {
     fn expected_name() -> &'static str {
         "LibreSSL"
     }
-    #[cfg(boringssl)]
+    #[cfg(any(boringssl, awslc))]
     fn expected_name() -> &'static str {
         "BoringSSL"
     }
